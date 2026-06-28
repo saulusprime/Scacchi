@@ -1,6 +1,63 @@
-{% extends "web/base.html" %}
-{% block title %}{{ s.game_name }} — partita {{ s.id }}{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scacchi — partita 1</title>
+  <style>
+    :root {
+      --bg:#0f1419; --panel:#1b232d; --accent:#d9a441; --text:#e8eaed;
+      --muted:#9aa4af; --line:#2c3742;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+           background:var(--bg); color:var(--text); }
+    a { color:var(--accent); }
+    .wrap { max-width: 980px; margin:0 auto; padding:0 20px; }
+    header { background:var(--panel); border-bottom:2px solid var(--accent); }
+    nav { display:flex; gap:18px; align-items:center; min-height:60px; flex-wrap:wrap; }
+    nav a { color:var(--text); text-decoration:none; font-weight:500; }
+    nav a:hover { color:var(--accent); }
+    nav .brand { font-size:1.3rem; font-weight:700; color:var(--accent); margin-right:auto; }
+    main { padding:28px 0 60px; }
+    h1,h2 { line-height:1.2; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:10px;
+            padding:20px; margin-bottom:18px; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-weight:600; }
+    .btn { display:inline-block; background:var(--accent); color:#1a1a1a; padding:9px 16px;
+           border-radius:8px; text-decoration:none; font-weight:600; border:none; cursor:pointer;
+           font-size:1rem; }
+    .btn.secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+    form p { margin:0 0 14px; }
+    label { display:block; color:var(--muted); margin-bottom:4px; }
+    input, select { width:100%; padding:8px 10px; border-radius:7px; border:1px solid var(--line);
+                    background:#0f1419; color:var(--text); font-size:1rem; }
+    .messages { list-style:none; padding:0; margin:0 0 18px; }
+    .messages li { padding:10px 14px; border-radius:8px; margin-bottom:8px; }
+    .messages .success { background:#16331f; border:1px solid #2e7d4f; }
+    .messages .error { background:#3a1c1c; border:1px solid #a23b3b; }
+    .muted { color:var(--muted); }
+    .pill { background:var(--accent); color:#1a1a1a; border-radius:20px; padding:2px 10px;
+            font-size:.8rem; font-weight:700; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><nav>
+    <a class="brand" href="/">♟ Scacchi</a>
+    <a href="/">Home</a>
+    <a href="/gioca/">Gioca</a>
+    <a href="/giocatori/">Giocatori</a>
+    <a href="/gruppi/">Gruppi</a>
+    <a href="/classifiche/">Classifiche</a>
+    <a href="/partite/registra/">Registra partita</a>
+    <a href="/admin/">Admin</a>
+  </nav></div></header>
+  <main><div class="wrap">
+    
+    
 <style>
   .play { display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
   .board { display:grid; gap:4px; margin:8px 0; }
@@ -31,16 +88,16 @@
   #opening { margin-top:4px; }
 </style>
 
-{{ s|json_script:"session-data" }}
+<script id="session-data" type="application/json">{"id": 1, "game_code": "chess", "game_name": "Scacchi", "rows": 8, "cols": 8, "move_type": "chess", "status": "in_progress", "board": ["\u265c", "\u265e", "\u265d", "\u265b", "\u265a", "\u265d", "\u265e", "\u265c", "\u265f", "\u265f", "\u265f", null, "\u265f", "\u265f", "\u265f", "\u265f", null, null, null, "\u265f", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "\u2659", null, null, null, null, null, null, null, null, null, null, null, "\u2659", "\u2659", "\u2659", "\u2659", null, "\u2659", "\u2659", "\u2659", "\u2656", "\u2658", "\u2657", "\u2655", "\u2654", "\u2657", "\u2658", "\u2656"], "current": "x", "current_is_ai": false, "legal_moves": [], "playable_moves": [{"id": "e4e5", "from": 36, "to": 28, "changes": [[28, "\u2659"], [36, null]]}, {"id": "a2a3", "from": 48, "to": 40, "changes": [[40, "\u2659"], [48, null]]}, {"id": "a2a4", "from": 48, "to": 32, "changes": [[32, "\u2659"], [48, null]]}, {"id": "b2b3", "from": 49, "to": 41, "changes": [[41, "\u2659"], [49, null]]}, {"id": "b2b4", "from": 49, "to": 33, "changes": [[33, "\u2659"], [49, null]]}, {"id": "c2c3", "from": 50, "to": 42, "changes": [[42, "\u2659"], [50, null]]}, {"id": "c2c4", "from": 50, "to": 34, "changes": [[34, "\u2659"], [50, null]]}, {"id": "d2d3", "from": 51, "to": 43, "changes": [[43, "\u2659"], [51, null]]}, {"id": "d2d4", "from": 51, "to": 35, "changes": [[35, "\u2659"], [51, null]]}, {"id": "f2f3", "from": 53, "to": 45, "changes": [[45, "\u2659"], [53, null]]}, {"id": "f2f4", "from": 53, "to": 37, "changes": [[37, "\u2659"], [53, null]]}, {"id": "g2g3", "from": 54, "to": 46, "changes": [[46, "\u2659"], [54, null]]}, {"id": "g2g4", "from": 54, "to": 38, "changes": [[38, "\u2659"], [54, null]]}, {"id": "h2h3", "from": 55, "to": 47, "changes": [[47, "\u2659"], [55, null]]}, {"id": "h2h4", "from": 55, "to": 39, "changes": [[39, "\u2659"], [55, null]]}, {"id": "b1a3", "from": 57, "to": 40, "changes": [[40, "\u2658"], [57, null]]}, {"id": "b1c3", "from": 57, "to": 42, "changes": [[42, "\u2658"], [57, null]]}, {"id": "d1e2", "from": 59, "to": 52, "changes": [[52, "\u2655"], [59, null]]}, {"id": "d1f3", "from": 59, "to": 45, "changes": [[45, "\u2655"], [59, null]]}, {"id": "d1g4", "from": 59, "to": 38, "changes": [[38, "\u2655"], [59, null]]}, {"id": "d1h5", "from": 59, "to": 31, "changes": [[31, "\u2655"], [59, null]]}, {"id": "e1e2", "from": 60, "to": 52, "changes": [[52, "\u2654"], [60, null]]}, {"id": "f1e2", "from": 61, "to": 52, "changes": [[52, "\u2657"], [61, null]]}, {"id": "f1d3", "from": 61, "to": 43, "changes": [[43, "\u2657"], [61, null]]}, {"id": "f1c4", "from": 61, "to": 34, "changes": [[34, "\u2657"], [61, null]]}, {"id": "f1b5", "from": 61, "to": 25, "changes": [[25, "\u2657"], [61, null]]}, {"id": "f1a6", "from": 61, "to": 16, "changes": [[16, "\u2657"], [61, null]]}, {"id": "g1f3", "from": 62, "to": 45, "changes": [[45, "\u2658"], [62, null]]}, {"id": "g1h3", "from": 62, "to": 47, "changes": [[47, "\u2658"], [62, null]]}, {"id": "g1e2", "from": 62, "to": 52, "changes": [[52, "\u2658"], [62, null]]}], "winner": null, "opening": "Difesa Pirc", "moves": [{"ply": 1, "player": "X", "notation": "e2-e4", "id": "e2e4"}, {"ply": 2, "player": "O", "notation": "d7-d6", "id": "d7d6"}], "players": {"x": {"type": "human", "user_id": 1, "alias": "sc1"}, "o": {"type": "ai", "user_id": null, "alias": null}}, "last_ai": null}</script>
 
 <div class="card">
-  <h1>{{ s.game_name }}</h1>
+  <h1>Scacchi</h1>
   <p class="muted">
-    <strong>X</strong>: {{ s.players.x.alias|default:"IA" }}
-    ({% if s.players.x.type == 'ai' %}IA{% else %}umano{% endif %})
+    <strong>X</strong>: sc1
+    (umano)
     &nbsp;·&nbsp;
-    <strong>O</strong>: {{ s.players.o.alias|default:"IA" }}
-    ({% if s.players.o.type == 'ai' %}IA{% else %}umano{% endif %})
+    <strong>O</strong>: IA
+    (IA)
   </p>
 
   <div class="play">
@@ -58,19 +115,19 @@
   </div>
 
   <p style="margin-top:18px;">
-    <a class="btn" href="{% url 'play_setup' %}">Nuova partita</a>
-    <a class="btn secondary" href="{% url 'rankings' %}">Classifiche</a>
+    <a class="btn" href="/gioca/">Nuova partita</a>
+    <a class="btn secondary" href="/classifiche/">Classifiche</a>
   </p>
 </div>
 
 <script>
 (function () {
   const SESSION = JSON.parse(document.getElementById("session-data").textContent);
-  const MOVE_URL = "{% url 'play_move_json' s.id %}";
-  const CSRF = "{{ csrf_token }}";
-  const AI_DELAY = {{ ai_delay|default:700 }};
-  const X_AI = {% if s.players.x.type == 'ai' %}true{% else %}false{% endif %};
-  const O_AI = {% if s.players.o.type == 'ai' %}true{% else %}false{% endif %};
+  const MOVE_URL = "/partite/1/mossa.json";
+  const CSRF = "9W4AUFc0QXY5J4TbGa9AQqOrZPlR73snQd4coptqKVEqYnkHjFCH3nerQRyshYZq";
+  const AI_DELAY = 700;
+  const X_AI = false;
+  const O_AI = true;
 
   const rows = SESSION.rows, cols = SESSION.cols, moveType = SESSION.move_type;
   const isSelect = moveType === "draughts" || moveType === "chess";
@@ -279,4 +336,7 @@
   setStatus(SESSION);
 })();
 </script>
-{% endblock %}
+
+  </div></main>
+</body>
+</html>
